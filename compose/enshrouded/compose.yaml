@@ -1,0 +1,18 @@
+services:
+  enshrouded:
+    image: sknnr/enshrouded-dedicated-server:latest
+    container_name: enshrouded
+
+    restart: unless-stopped
+
+    ports:
+      - "15636:15636/udp"
+      - "15637:15637/udp"
+
+    environment:
+      SERVER_NAME: "Florians Enshrouded Server"
+      SERVER_PASSWORD: ""
+      SERVER_SLOTS: "4"
+
+    volumes:
+      - /srv/docker/data/enshrouded:/opt/enshrouded
