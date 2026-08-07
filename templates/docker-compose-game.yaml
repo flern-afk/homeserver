@@ -1,0 +1,13 @@
+services:
+  game:
+    image: IMAGE_NAME
+
+    container_name: CONTAINER_NAME
+
+    restart: unless-stopped
+
+    ports:
+      - "PORT:PORT"
+
+    volumes:
+      - /srv/docker/data/NAME:/data

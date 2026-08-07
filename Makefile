@@ -38,3 +38,10 @@ stop:
 
 restart:
 	docker restart $(SERVER)
+SERVER ?= enshrouded
+
+logs:
+	./scripts/server.sh $(SERVER) logs
+
+restart:
+	./scripts/server.sh $(SERVER) restart
