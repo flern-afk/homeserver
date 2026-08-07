@@ -1,18 +1,22 @@
-.PHONY: help status backup update logs ps restart stop start git
+.PHONY: help ps status backup update start stop restart logs
+
+SERVER ?= enshrouded
 
 help:
 	@echo ""
-	@echo "===== Home Server ====="
+	@echo "Home Server"
+	@echo "=============================="
+	@echo "make ps"
+	@echo "make status"
+	@echo "make backup"
+	@echo "make update"
 	@echo ""
-	@echo "make status     Systemstatus anzeigen"
-	@echo "make backup     Backup erstellen"
-	@echo "make update     System aktualisieren"
-	@echo "make ps         Docker Container"
-	@echo "make logs       Enshrouded Logs"
-	@echo "make start      Enshrouded starten"
-	@echo "make stop       Enshrouded stoppen"
-	@echo "make restart    Enshrouded neu starten"
+	@echo "make logs SERVER=enshrouded"
+	@echo "make restart SERVER=minecraft"
 	@echo ""
+
+ps:
+	docker ps
 
 status:
 	./scripts/status.sh
@@ -23,20 +27,14 @@ backup:
 update:
 	./scripts/update.sh
 
-ps:
-	docker ps
-
 logs:
-	docker logs -f enshrouded
+	docker logs -f $(SERVER)
 
 start:
-	docker start enshrouded
+	docker start $(SERVER)
 
 stop:
-	docker stop enshrouded
+	docker stop $(SERVER)
 
 restart:
-	docker restart enshrouded
-
-health:
-	./scripts/health.sh
+	docker restart $(SERVER)
