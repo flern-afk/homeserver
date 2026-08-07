@@ -4,15 +4,17 @@ SERVER ?= enshrouded
 
 help:
 	@echo ""
-	@echo "Home Server"
-	@echo "=============================="
-	@echo "make ps"
+	@echo "===== Home Server ====="
+	@echo ""
 	@echo "make status"
+	@echo "make ps"
 	@echo "make backup"
 	@echo "make update"
 	@echo ""
 	@echo "make logs SERVER=enshrouded"
-	@echo "make restart SERVER=minecraft"
+	@echo "make restart SERVER=enshrouded"
+	@echo "make stop SERVER=enshrouded"
+	@echo "make start SERVER=enshrouded"
 	@echo ""
 
 ps:
@@ -28,20 +30,13 @@ update:
 	./scripts/update.sh
 
 logs:
-	docker logs -f $(SERVER)
+	./scripts/server.sh $(SERVER) logs
 
 start:
-	docker start $(SERVER)
+	./scripts/server.sh $(SERVER) up
 
 stop:
-	docker stop $(SERVER)
-
-restart:
-	docker restart $(SERVER)
-SERVER ?= enshrouded
-
-logs:
-	./scripts/server.sh $(SERVER) logs
+	./scripts/server.sh $(SERVER) down
 
 restart:
 	./scripts/server.sh $(SERVER) restart
