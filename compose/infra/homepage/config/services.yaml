@@ -1,0 +1,22 @@
+- Games:
+    - Enshrouded:
+        href: http://localhost:15637
+        icon: mdi-sword
+
+    - Satisfactory:
+        href: http://localhost:7777
+        icon: mdi-factory
+
+- Verwaltung:
+    - Portainer:
+        href: http://localhost:9000
+        icon: portainer
+
+    - Cockpit:
+        href: https://localhost:9090
+        icon: cockpit
+
+- Entwicklung:
+    - GitHub:
+        href: https://github.com/flern-afk/homeserver
+        icon: github

@@ -1,0 +1,18 @@
+title: Florian's Home Server
+
+background:
+  image: https://images.unsplash.com/photo-1518770660439-4636190af475
+  blur: sm
+  saturate: 50
+  brightness: 40
+
+theme: dark
+color: slate
+
+layout:
+  Games:
+    style: row
+  Verwaltung:
+    style: row
+  Entwicklung:
+    style: row

@@ -1,0 +1,13 @@
+- resources:
+    cpu: true
+    memory: true
+    disk: /
+
+- datetime:
+    locale: de
+    format:
+      dateStyle: long
+      timeStyle: medium
+
+- search:
+    provider: duckduckgo
