@@ -1,4 +1,39 @@
-data/
-backups/
+# Python
+**/__pycache__/
+**/*.pyc
+**/.venv/
+
+# Logs
 *.log
+
+# Backups
+backups/
+
+# Environment
+.env
+
+# VS Code
+.vscode/
+
+# JetBrains
+.idea/
+
+# Linux
+.DS_Store
+
+# Daten
+data/
+
+# Backups
+backups/
+
+# Logs
+*.log
+
+# Python
+**/__pycache__/
+**/*.pyc
+**/.venv/
+
+# Umgebungsdateien
 .env

@@ -1,57 +1,54 @@
-from docker_client import get_gameservers, start, stop
+import docker
+
+client = docker.from_env()
 
 
-def menu():
+def get_containers():
+    """Alle Docker-Container zurückgeben."""
+    return client.containers.list(all=True)
 
-    while True:
 
-        servers = get_gameservers()
+def get_gameservers():
+    """Alle Container mit dem Label homeserver.type=game."""
+    return [
+        c for c in get_containers()
+        if c.labels.get("homeserver.type") == "game"
+    ]
 
-        print()
-        print("================================")
-        print(" Home Server Manager")
-        print("================================")
-        print()
 
-        for i, server in enumerate(servers, start=1):
+def get_info(container):
+    """Informationen eines Containers als Dictionary zurückgeben."""
+    return {
+        "name": container.name,
+        "game": container.labels.get("homeserver.game", container.name),
+        "status": container.status,
+        "image": container.image.tags[0] if container.image.tags else "Unbekannt",
+    }
 
-            icon = "🟢" if server.status == "running" else "⚫"
 
-            print(f"{i}. {server.name:20} {icon} {server.status}")
+def start(name):
+    """Container starten."""
+    client.containers.get(name).start()
 
-        print()
-        print("0. Beenden")
-        print()
 
-        choice = input("Server auswählen: ")
+def stop(name):
+    """Container stoppen."""
+    client.containers.get(name).stop()
 
-        if choice == "0":
-            break
 
-        try:
+def restart(name):
+    """Container neu starten."""
+    client.containers.get(name).restart()
 
-            server = servers[int(choice)-1]
 
-        except (ValueError, IndexError):
+def logs(name, lines=50):
+    """Die letzten Logzeilen eines Containers zurückgeben."""
+    container = client.containers.get(name)
+    return container.logs(tail=lines).decode("utf-8")
 
-            print("Ungültige Eingabe.")
-            continue
 
-        print()
-        print(f"{server.name}")
-        print("----------------------")
-        print("1. Start")
-        print("2. Stop")
-        print("3. Restart")
-        print()
-
-        action = input("Aktion: ")
-
-        if action == "1":
-            start(server.name)
-
-        elif action == "2":
-            stop(server.name)
-
-        elif action == "3":
-            restart(server.name)
+def is_running(name):
+    """Prüfen, ob ein Container läuft."""
+    container = client.containers.get(name)
+    container.reload()
+    return container.status == "running"
