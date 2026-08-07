@@ -1,54 +1,87 @@
-import docker
-
-client = docker.from_env()
-
-
-def get_containers():
-    """Alle Docker-Container zurückgeben."""
-    return client.containers.list(all=True)
-
-
-def get_gameservers():
-    """Alle Container mit dem Label homeserver.type=game."""
-    return [
-        c for c in get_containers()
-        if c.labels.get("homeserver.type") == "game"
-    ]
+from docker_client import (
+    get_gameservers,
+    get_info,
+    start,
+    stop,
+    restart,
+)
 
 
-def get_info(container):
-    """Informationen eines Containers als Dictionary zurückgeben."""
-    return {
-        "name": container.name,
-        "game": container.labels.get("homeserver.game", container.name),
-        "status": container.status,
-        "image": container.image.tags[0] if container.image.tags else "Unbekannt",
-    }
+def show_servers():
+    servers = get_gameservers()
+
+    print()
+    print("========================================")
+    print("         Home Server Manager")
+    print("========================================")
+
+    for i, server in enumerate(servers, start=1):
+        info = get_info(server)
+
+        icon = "🟢" if info["status"] == "running" else "⚫"
+
+        print(f"{i}. {info['game']:15} {icon} {info['status']}")
+
+    print()
+    print("0. Beenden")
+    print()
+
+    return servers
 
 
-def start(name):
-    """Container starten."""
-    client.containers.get(name).start()
+def server_menu(server):
+    while True:
+
+        info = get_info(server)
+
+        print()
+        print(f"===== {info['game']} =====")
+        print(f"Status : {info['status']}")
+        print(f"Image  : {info['image']}")
+        print()
+
+        print("1. Start")
+        print("2. Stop")
+        print("3. Restart")
+        print("0. Zurück")
+        print()
+
+        choice = input("Auswahl: ")
+
+        if choice == "1":
+            start(server.name)
+            return
+
+        elif choice == "2":
+            stop(server.name)
+            return
+
+        elif choice == "3":
+            restart(server.name)
+            return
+
+        elif choice == "0":
+            return
+
+        else:
+            print("Ungültige Eingabe")
 
 
-def stop(name):
-    """Container stoppen."""
-    client.containers.get(name).stop()
+def menu():
 
+    while True:
 
-def restart(name):
-    """Container neu starten."""
-    client.containers.get(name).restart()
+        servers = show_servers()
 
+        choice = input("Server auswählen: ")
 
-def logs(name, lines=50):
-    """Die letzten Logzeilen eines Containers zurückgeben."""
-    container = client.containers.get(name)
-    return container.logs(tail=lines).decode("utf-8")
+        if choice == "0":
+            break
 
+        try:
+            server = servers[int(choice) - 1]
+        except (ValueError, IndexError):
+            print("Ungültige Eingabe")
+            continue
 
-def is_running(name):
-    """Prüfen, ob ein Container läuft."""
-    container = client.containers.get(name)
-    container.reload()
-    return container.status == "running"
+        server_menu(server)

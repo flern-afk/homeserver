@@ -35,3 +35,8 @@ def get_info(container):
         "status": container.status,
         "image": container.image.tags[0] if container.image.tags else "Unbekannt",
     }
+
+
+def logs(name, lines=50):
+    container = client.containers.get(name)
+    return container.logs(tail=lines).decode("utf-8")
