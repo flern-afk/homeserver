@@ -1,4 +1,4 @@
-.PHONY: help ps status backup update start stop restart logs
+.PHONY: help ps status backup update start stop restart logs web cli
 
 SERVER ?= enshrouded
 
@@ -40,3 +40,9 @@ stop:
 
 restart:
 	./scripts/server.sh $(SERVER) restart
+
+web:
+	cd manager && . .venv/bin/activate && python -m uvicorn web:app --reload
+
+cli:
+	cd manager && . .venv/bin/activate && python cli.py
