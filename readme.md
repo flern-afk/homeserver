@@ -1,39 +1,51 @@
-# Home Server
+# 🖥️ Home Server
 
 ## Hardware
 
-- Samsung Galaxy Book 5 Pro
-- Kubuntu
-- 16 GB RAM
+| Komponente | Wert |
+|------------|------|
+| Notebook | Samsung Galaxy Book 5 Pro |
+| OS | Kubuntu |
+| RAM | 16 GB |
 
-## Software
+---
 
-- Docker
-- Docker Compose
-- Portainer
+## Dienste
 
-## Game Server
+| Dienst | Port | Status |
+|---------|------|--------|
+| Portainer | 9000 | ✅ |
+| Cockpit | 9090 | ✅ |
+| Enshrouded | 15637 UDP | ✅ |
 
-| Spiel | Status |
-|--------|--------|
-| Enshrouded | ✅ |
-| Minecraft | ⏳ |
-| Valheim | ⏳ |
-| Satisfactory | ⏳ |
+---
 
 ## Verzeichnisstruktur
 
 compose/
-- Docker Compose Dateien
-
 data/
-- Spielstände
-
-backups/
-- Backups
-
 docs/
-- Dokumentation
-
 scripts/
-- Hilfsskripte
+backups/
+
+---
+
+## Wartung
+
+Backup
+
+```bash
+make backup
+```
+
+Status
+
+```bash
+make status
+```
+
+Update
+
+```bash
+make update
+```
