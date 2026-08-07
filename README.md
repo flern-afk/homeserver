@@ -1,22 +1,38 @@
 # Home Server
 
-## Hardware
-
-- Samsung Galaxy Book 5 Pro
-- Intel Core Ultra
-- 16 GB RAM
-- Kubuntu
-
-## Software
+## Features
 
 - Docker
-- Docker Compose
 - Portainer
-- Cockpit
+- Homepage
+- Enshrouded
+- Satisfactory
+- Python Home Server Manager
+
+## Projektstruktur
+
+compose/
+manager/
+scripts/
+docs/
+data/
+backups/
 
 ## Gameserver
 
 - Enshrouded
-- Minecraft (geplant)
-- Valheim (geplant)
-- Satisfactory (geplant)
+- Satisfactory
+
+## Start
+
+Manager:
+
+```bash
+cd /srv/docker/manager
+source .venv/bin/activate
+python app.py
+```
+
+Portainer:
+
+http://SERVER-IP:9000
