@@ -1,3 +1,3 @@
-from menu import menu
+from terminal.menu import menu
 
 menu()

@@ -1,6 +1,6 @@
 import docker
 
-from config import LABEL_TYPE, LABEL_GAME, TYPE_GAME
+from core.config import LABEL_TYPE, LABEL_GAME, TYPE_GAME
 
 client = docker.from_env()
 

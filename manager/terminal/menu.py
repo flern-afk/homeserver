@@ -1,4 +1,4 @@
-from docker_client import (
+from core.docker_client import (
     get_gameservers,
     get_info,
     start,
@@ -6,7 +6,7 @@ from docker_client import (
     restart,
 )
 
-from ui import print_servers
+from terminal.display import print_servers
 
 
 def show_servers():
