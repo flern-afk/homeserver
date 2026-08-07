@@ -2,6 +2,18 @@
 
 {% block content %}
 
-<h1>HomeControl läuft 🎉</h1>
+<h1>🏠 HomeControl</h1>
+
+<ul>
+
+{% for server in servers %}
+
+    <li>
+        {{ server.game }} - {{ server.status }}
+    </li>
+
+{% endfor %}
+
+</ul>
 
 {% endblock %}
