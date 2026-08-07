@@ -4,6 +4,10 @@ services:
     container_name: satisfactory
     hostname: satisfactory
 
+    labels:
+      homeserver.type: game
+      homeserver.game: satisfactory
+
     restart: unless-stopped
 
     ports:

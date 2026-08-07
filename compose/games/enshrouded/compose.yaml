@@ -3,6 +3,10 @@ services:
     image: sknnr/enshrouded-dedicated-server:latest
     container_name: enshrouded
 
+    labels:
+      homeserver.type: game
+      homeserver.game: enshrouded
+
     restart: unless-stopped
 
     ports:
