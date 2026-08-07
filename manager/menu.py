@@ -6,6 +6,8 @@ from docker_client import (
     restart,
 )
 
+from ui import print_servers
+
 
 def show_servers():
     servers = get_gameservers()
@@ -15,12 +17,7 @@ def show_servers():
     print("         Home Server Manager")
     print("========================================")
 
-    for i, server in enumerate(servers, start=1):
-        info = get_info(server)
-
-        icon = "🟢" if info["status"] == "running" else "⚫"
-
-        print(f"{i}. {info['game']:15} {icon} {info['status']}")
+    print_servers(servers, get_info)
 
     print()
     print("0. Beenden")
@@ -30,6 +27,7 @@ def show_servers():
 
 
 def server_menu(server):
+
     while True:
 
         info = get_info(server)
@@ -50,21 +48,24 @@ def server_menu(server):
 
         if choice == "1":
             start(server.name)
+            print("Server gestartet.")
             return
 
         elif choice == "2":
             stop(server.name)
+            print("Server gestoppt.")
             return
 
         elif choice == "3":
             restart(server.name)
+            print("Server neu gestartet.")
             return
 
         elif choice == "0":
             return
 
         else:
-            print("Ungültige Eingabe")
+            print("Ungültige Eingabe.")
 
 
 def menu():
@@ -76,12 +77,13 @@ def menu():
         choice = input("Server auswählen: ")
 
         if choice == "0":
+            print("Programm beendet.")
             break
 
         try:
             server = servers[int(choice) - 1]
         except (ValueError, IndexError):
-            print("Ungültige Eingabe")
+            print("Ungültige Eingabe.")
             continue
 
         server_menu(server)
