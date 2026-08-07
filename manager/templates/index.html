@@ -2,18 +2,62 @@
 
 {% block content %}
 
-<h1>🏠 HomeControl</h1>
+<h1 class="mb-4">🏠 HomeControl</h1>
 
-<ul>
+<div class="card bg-dark border-secondary">
 
-{% for server in servers %}
+    <div class="card-header">
+        🎮 Gameserver
+    </div>
 
-    <li>
-        {{ server.game }} - {{ server.status }}
-    </li>
+    <div class="card-body p-0">
 
-{% endfor %}
+        <table class="table table-dark table-hover mb-0">
 
-</ul>
+            <thead>
+
+                <tr>
+                    <th>Spiel</th>
+                    <th>Status</th>
+                    <th>Image</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for server in servers %}
+
+                <tr>
+
+                    <td>{{ server.game }}</td>
+
+                    <td>
+
+                        {% if server.status == "running" %}
+
+                            🟢 Running
+
+                        {% else %}
+
+                            🔴 Stopped
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>{{ server.image }}</td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 {% endblock %}
